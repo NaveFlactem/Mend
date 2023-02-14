@@ -1,3 +1,6 @@
+NOTE: Linux Users Beware (You're on your own) 
+
+
 #FORK INSTRUCTIONS FOR DEVELOPMENT
 
 1. Visit github.com/NaveFlactem/Men-Health-App
@@ -42,8 +45,24 @@ There are two ways to clone a github repository:
 
 2. Using Command Terminal:
 
-    - .....
+    - To be continued
 
 #CREATING A PULL REQUEST
 
-1. 
+1. In the main page of your forked repository, click the "Pull Requests" tab. 
+
+![Alt text](../img/image_8.png?raw=true "Optional Title")
+
+2. Click "New pull request" on the top right corner-ish.
+ 
+![Alt text](../img/image_9.png?raw=true "Optional Title")
+
+3. On this page, you are able to review the changes that you've made, and if satisfied, click "Create pull request"
+
+![Alt text](../img/image_10.png?raw=true "Optional Title")
+
+4. You will be prompted to create a title and provide an optional description to the changes you've made. Once you have finished, click "Create pull request"
+
+![Alt text](../img/image_11.png?raw=true "Optional Title")
+
+5. You can review and converse with admins of the repository. They will review and apply the changes to the main repository when possible.
