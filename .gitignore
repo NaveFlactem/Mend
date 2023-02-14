@@ -1,6 +1,6 @@
 #Directories
-img/
-Tutorials/
+res/img/
+res/Tutorials/
 
 #Files
-.md
+*.md
