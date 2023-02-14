@@ -1,6 +1,6 @@
 NOTE: Linux Users Beware (You're on your own) 
 
-
+=========================================================================================================
 #FORK INSTRUCTIONS FOR DEVELOPMENT
 
 1. Visit github.com/NaveFlactem/Men-Health-App
@@ -20,6 +20,13 @@ NOTE: Linux Users Beware (You're on your own)
 ![Alt text](../img/image_3.png?raw=true "Optional Title")
 
 6. To clone your forked repository, follow the #CLONING A REPOSITORY TUTORIAL section.
+
+
+
+=========================================================================================================
+=========================================================================================================
+
+
 
 #CLONING A REPOSITORY TUTORIAL
 
@@ -46,6 +53,13 @@ There are two ways to clone a github repository:
 2. Using Command Terminal:
 
     - To be continued
+
+
+
+=========================================================================================================
+=========================================================================================================
+
+
 
 #CREATING A PULL REQUEST
 
