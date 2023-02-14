@@ -1,6 +1,6 @@
 NOTE: Linux Users Beware (You're on your own) 
 
-=========================================================
+=====================================================================================
 
 #FORK INSTRUCTIONS FOR DEVELOPMENT
 
@@ -24,8 +24,7 @@ NOTE: Linux Users Beware (You're on your own)
 
 
 
-=========================================================
-
+=====================================================================================
 
 
 #CLONING A REPOSITORY TUTORIAL
@@ -56,7 +55,7 @@ There are two ways to clone a github repository:
 
 
 
-=========================================================
+=====================================================================================
 
 
 
@@ -79,3 +78,6 @@ There are two ways to clone a github repository:
 ![Alt text](../img/image_11.png?raw=true "Optional Title")
 
 5. You can review and converse with admins of the repository. They will review and apply the changes to the main repository when possible.
+
+
+=====================================================================================
