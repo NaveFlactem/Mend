@@ -81,3 +81,15 @@ There are two ways to clone a github repository:
 
 
 ============================================================================================
+
+
+Git Commands in CMD
+
+1. Go to location of GitHub file clone on computer
+2. Click the directory and delete then type cmd
+3. Cmd will open in that directory
+4. To check if Git has been updated type "git status"
+5. To send files to the GitHub select them by going to their directory using "cd <file location>" and using the command "git add <file name>"
+6. Then put the command "git commit -m <"Message">"
+7. Then put the command "git push"
+
