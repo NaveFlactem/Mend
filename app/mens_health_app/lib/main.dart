@@ -81,7 +81,7 @@ class LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   final String email = _emailController.text;
                   final String password = _passwordController.text;
-                  // Do something with the email and password
+
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => const HomePage()));
                 },

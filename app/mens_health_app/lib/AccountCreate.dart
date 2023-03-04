@@ -49,6 +49,7 @@ class AccountCreateState extends State<AccountCreate> {
               child: TextField(
                 controller: _passwordController,
                 style: const TextStyle(color: Colors.black),
+                obscureText: true,
                 decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -63,6 +64,7 @@ class AccountCreateState extends State<AccountCreate> {
               child: TextField(
                 controller: _confirmPasswordController,
                 style: const TextStyle(color: Colors.black),
+                obscureText: true,
                 decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,

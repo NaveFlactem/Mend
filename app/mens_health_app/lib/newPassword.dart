@@ -1,5 +1,3 @@
-import 'package:mens_health_app/main.dart';
-
 import 'all.dart';
 
 class newPassword extends StatefulWidget {
@@ -36,6 +34,7 @@ class newPasswordState extends State<newPassword> {
               child: TextField(
                 controller: _newPasswordController,
                 style: const TextStyle(color: Colors.black),
+                obscureText: true,
                 decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -50,6 +49,7 @@ class newPasswordState extends State<newPassword> {
               child: TextField(
                 controller: _confirmPasswordController,
                 style: const TextStyle(color: Colors.black),
+                obscureText: true,
                 decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
