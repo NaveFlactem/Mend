@@ -1,13 +1,13 @@
 import 'all.dart';
 
-class newPassword extends StatefulWidget {
-  const newPassword({Key? key}) : super(key: key);
+class NewPassword extends StatefulWidget {
+  const NewPassword({Key? key}) : super(key: key);
 
   @override
-  newPasswordState createState() => newPasswordState();
+  NewPasswordState createState() => NewPasswordState();
 }
 
-class newPasswordState extends State<newPassword> {
+class NewPasswordState extends State<NewPassword> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();

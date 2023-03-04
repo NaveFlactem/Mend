@@ -97,7 +97,7 @@ class LoginPageState extends State<LoginPage> {
             TextButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const newPassword()));
+                    MaterialPageRoute(builder: (_) => const NewPassword()));
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.transparent),
