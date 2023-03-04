@@ -38,7 +38,7 @@ class LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(top: 150.0),
               child: Center(
                 child: SizedBox(
-                    width: 250,
+                    width: 350,
                     height: 150,
                     child: Image.asset('asset/images/ponderBox.png')),
               ),

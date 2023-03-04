@@ -25,7 +25,7 @@ class AccountCreateState extends State<AccountCreate> {
               child: Center(
                 child: SizedBox(
                     width: 350,
-                    height: 250,
+                    height: 150,
                     child: Image.asset('asset/images/ponderBox.png')),
               ),
             ),
@@ -74,18 +74,22 @@ class AccountCreateState extends State<AccountCreate> {
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: SizedBox(
-                width: 150,
+                width: 200,
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
                     );
                   },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
                   child: const Text(
                     'Create Account',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
+                    style: TextStyle(color: Colors.black, fontSize: 20),
                   ),
                 ),
               ),
