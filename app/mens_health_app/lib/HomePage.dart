@@ -16,20 +16,10 @@ class HomePageState extends State<HomePage> {
       body: PageView(
         controller: _home,
         children: [
-          //Friends
-          Container(
-            color: Colors.blue,
-            child: const CustomScrollView(
-              slivers: [],
-            ),
-          ),
-          //Mental
-          Container(
-            color: Colors.green,
-            child: const CustomScrollView(
-              slivers: [],
-            ),
-          ),
+          // Friends
+          const FriendsPage(),
+          // Mental
+          const MentalPage(),
           // Center page
           Container(
             color: Colors.yellow,
@@ -37,20 +27,10 @@ class HomePageState extends State<HomePage> {
               slivers: [],
             ),
           ),
-          //Physical
-          Container(
-            color: Colors.orange,
-            child: const CustomScrollView(
-              slivers: [],
-            ),
-          ),
-          //Articles
-          Container(
-            color: Colors.red,
-            child: const CustomScrollView(
-              slivers: [],
-            ),
-          ),
+          // Physical
+          const PhysicalPage(),
+          // Articles
+          const ArticlesPage(),
         ],
       ),
     );
