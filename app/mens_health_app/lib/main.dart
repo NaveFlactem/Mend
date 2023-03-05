@@ -40,7 +40,7 @@ class LoginPageState extends State<LoginPage> {
                 child: SizedBox(
                     width: 350,
                     height: 150,
-                    child: Image.asset('asset/images/ponderBox.png')),
+                    child: Image.asset('asset/images/ponderbox.png')),
               ),
             ),
             Padding(

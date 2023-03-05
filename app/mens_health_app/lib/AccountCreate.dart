@@ -26,7 +26,7 @@ class AccountCreateState extends State<AccountCreate> {
                 child: SizedBox(
                     width: 350,
                     height: 150,
-                    child: Image.asset('asset/images/ponderBox.png')),
+                    child: Image.asset('asset/images/ponderbox.png')),
               ),
             ),
             Padding(
