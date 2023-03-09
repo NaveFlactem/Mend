@@ -17,26 +17,65 @@ class AccountPageState extends State<AccountPage> {
         controller: _profile,
         children: [
           //Settings
-          Container(
-            color: Colors.blue,
-            child: const CustomScrollView(
-              slivers: [],
-            ),
-          ),
+          const SettingsPage(),
           //Profile
           Container(
-            color: Colors.green,
-            child: const CustomScrollView(
-              slivers: [],
-            ),
-          ),
+            color: Color.fromARGB(255, 69, 69, 69),
+            child: Center(
+              child: Container(
+                padding: const EdgeInsets.all(79.5),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 124, 124, 124),
+                  borderRadius: BorderRadius.circular(0.0),
+                  border: Border.all(
+                    color: Color.fromARGB(255, 34, 34, 34)!,
+                    width: 2.0,
+                  ),
+                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 0.0),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 15.0),
+                    child: CircleAvatar(
+                      radius: 75.0,
+                      backgroundImage: NetworkImage(
+                        'https://images.unsplash.com/photo-1601887389937-0b02c26b602c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 300),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'User Name',
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        const Text(
+                          'User Bio',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                  
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
+          )
+        ),
+
           //History
-          Container(
-            color: Colors.yellow,
-            child: const CustomScrollView(
-              slivers: [],
-            ),
-          ),
+          const HistoryPage(),
         ],
       ),
     );
