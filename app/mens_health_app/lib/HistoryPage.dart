@@ -19,7 +19,7 @@ class HistoryPageState extends State<HistoryPage> {
             child: Container(
               padding: const EdgeInsets.all(0.5),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 124, 124, 124),
+                color: Color.fromARGB(255, 172, 172, 172),
                 borderRadius: BorderRadius.circular(0.0),
                 border: Border.all(
                   color: Color.fromARGB(255, 69, 69, 69),

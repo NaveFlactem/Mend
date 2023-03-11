@@ -30,7 +30,7 @@ class AccountPageState extends State<AccountPage> {
                   child: Container(
                     padding: const EdgeInsets.all(79.5),
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 124, 124, 124),
+                      color: Color.fromARGB(255, 172, 172, 172),
                       borderRadius: BorderRadius.circular(0.0),
                       border: Border.all(
                         color: const Color.fromARGB(255, 34, 34, 34)!,
