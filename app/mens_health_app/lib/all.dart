@@ -11,3 +11,4 @@ export 'ArticlesPage.dart';
 export 'SettingsPage.dart';
 export 'ProfilePage.dart';
 export 'HistoryPage.dart';
+export 'ChangeUserName.dart';
