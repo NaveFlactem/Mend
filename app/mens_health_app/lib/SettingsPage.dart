@@ -72,13 +72,6 @@ class SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                   ListTile(
-                    leading: Icon(Icons.info),
-                    title: Text('About'),
-                    onTap: () {
-                      _showAboutDialog(); // show the about dialog
-                    },
-                  ),
-                  ListTile(
                     leading: Icon(Icons.person),
                     title: Text('Personalization'),
                     onTap: () {
@@ -102,6 +95,46 @@ class SettingsPageState extends State<SettingsPage> {
                     title: Text('Change Password'),
                     onTap: () {
                       // navigate to Change Password page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChangePasswordPage()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.info),
+                    title: Text('About'),
+                    onTap: () {
+                      _showAboutDialog(); // show the about dialog
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.info),
+                     title: Text('Credits'),
+                    onTap: () {
+                      showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Credits'),
+                            content: Container(
+                            width: double.maxFinite,
+                              child: Text(
+                                'This app was created by Thomas Pollicino, Ryan Taylor, Alfonso Luis Del Rosario, Cristian Rivas, Salad, Vish, Open AI, and Evan Metcalf as part of the Google DSC program at UCSC.',
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                child: Text('Close'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                     );
                     },
                   ),
                 ],

@@ -78,15 +78,16 @@ class AccountPageState extends State<AccountPage> {
                   ),
                 ),
                 Positioned(
-                  bottom: 450.0,
-                  right: 130.0,
+                bottom: 450.0,
+                right: 130.0,
                   child: FloatingActionButton(
                     onPressed: () {
-                      // add code to change profile picture
+      // add code to change profile picture
                     },
-                    child: const Icon(Icons.edit),
+                    child: Icon(Icons.edit, color: Color.fromARGB(255, 53, 53, 53)), // change icon color to dark grey
+                    backgroundColor: Color.fromARGB(255, 222, 221, 221),
                   ),
-                ),
+               ),
               ],
             ),
           ),

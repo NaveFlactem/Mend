@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
 import 'all.dart';
 
-class ChangeUserNamePage extends StatefulWidget {
-  const ChangeUserNamePage({Key? key}) : super(key: key);
+class ChangePasswordPage extends StatefulWidget {
+  const ChangePasswordPage({Key? key}) : super(key: key);
 
   @override
-  _ChangeUserNamePageState createState() => _ChangeUserNamePageState();
+  _ChangePasswordPageState createState() => _ChangePasswordPageState();
 }
 
-class _ChangeUserNamePageState extends State<ChangeUserNamePage> {
+class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final TextEditingController _usernameController = TextEditingController();
 
   @override
@@ -17,7 +16,7 @@ class _ChangeUserNamePageState extends State<ChangeUserNamePage> {
     super.dispose();
   }
 
-  void _saveUsername() {
+  void _savePassword() {
     // TODO: save new username to database or storage
     String newUsername = _usernameController.text;
     print('New username: $newUsername');
@@ -29,8 +28,8 @@ class _ChangeUserNamePageState extends State<ChangeUserNamePage> {
     return Scaffold(
       backgroundColor: Colors.grey[300], // set background color to gray
       appBar: AppBar(
+        title: Text('Change Password'),
         backgroundColor: Colors.grey[800], // set app bar color to dark grey
-        title: Text('Change Username'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -40,12 +39,13 @@ class _ChangeUserNamePageState extends State<ChangeUserNamePage> {
             TextField(
               controller: _usernameController,
               decoration: InputDecoration(
-                labelText: 'New Username',
+                labelText: 'New Password',
+                labelStyle: TextStyle(color: Colors.grey[800]), // set label color to dark grey
               ),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: _saveUsername,
+              onPressed: _savePassword,
               child: Text('Save'),
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey[800], // set button color to dark grey

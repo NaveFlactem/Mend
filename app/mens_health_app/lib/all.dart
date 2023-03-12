@@ -12,3 +12,4 @@ export 'SettingsPage.dart';
 export 'ProfilePage.dart';
 export 'HistoryPage.dart';
 export 'ChangeUserName.dart';
+export 'ChangePassword.dart';
