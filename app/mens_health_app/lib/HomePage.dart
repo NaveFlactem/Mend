@@ -23,8 +23,23 @@ class HomePageState extends State<HomePage> {
           // Center page
           Container(
             color: Colors.yellow,
-            child: const CustomScrollView(
-              slivers: [],
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                width: 70,
+                height: 70,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.account_circle,
+                    size: 50,
+                  ),
+                  onPressed: () {
+                    // Add your code for the button's onPressed event here
+                    Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const AccountPage()));
+                  },
+                ),
+              ),
             ),
           ),
           // Physical
