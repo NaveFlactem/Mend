@@ -3,7 +3,7 @@ import 'all.dart';
 class MentalPage extends StatefulWidget {
   const MentalPage({Key? key}) : super(key: key);
   @override
-  PhysicalPageState createState() => PhysicalPageState();
+  MentalPageState createState() => MentalPageState();
 }
 
 class MentalPageState extends State<MentalPage> {
@@ -78,12 +78,6 @@ A random paragraph can also be an excellent way for a writer to tackle writers b
         automaticallyImplyLeading: false,
         title: Row(
           children: const [
-            Expanded(child: Icon(Icons.star_border)),
-            SizedBox(width: 10),
-            Expanded(child: Icon(Icons.star_border)),
-            SizedBox(width: 10),
-            Expanded(child: Icon(Icons.star_border)),
-            SizedBox(width: 10),
             Flexible(
               flex: 10,
               child: Text(
@@ -97,6 +91,12 @@ A random paragraph can also be an excellent way for a writer to tackle writers b
                 textAlign: TextAlign.center,
               ),
             ),
+            SizedBox(width: 10),
+            Expanded(child: Icon(Icons.star_border)),
+            SizedBox(width: 10),
+            Expanded(child: Icon(Icons.star_border)),
+            SizedBox(width: 10),
+            Expanded(child: Icon(Icons.star_border)),
           ],
         ),
         bottom: PreferredSize(
