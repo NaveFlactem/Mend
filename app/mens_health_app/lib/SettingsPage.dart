@@ -16,6 +16,31 @@ class SettingsPageState extends State<SettingsPage> {
     });
   }
 
+  void _showAboutDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('About Us'),
+          content: Container(
+            width: double.maxFinite,
+            child: Text(
+              'This app was made as a part of the Google DSC program at UCSC. It was designed to help men mangage and improve their physical and mental health. We hope you enjoy!',
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +75,7 @@ class SettingsPageState extends State<SettingsPage> {
                     leading: Icon(Icons.info),
                     title: Text('About'),
                     onTap: () {
-                      // navigate to About page
+                      _showAboutDialog(); // show the about dialog
                     },
                   ),
                   ListTile(
@@ -65,6 +90,11 @@ class SettingsPageState extends State<SettingsPage> {
                     title: Text('Change Username'),
                     onTap: () {
                       // navigate to Change Username page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChangeUserNamePage()),
+                      );
                     },
                   ),
                   ListTile(
