@@ -26,13 +26,10 @@ class DiamondContainer extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: Center(
-        child: Transform.rotate(
-          angle: pi / 4,
-          child: Icon(
-            Icons.star,
-            size: size * 0.6,
-            color: Colors.white,
-          ),
+        child: Icon(
+          Icons.star,
+          size: size * 0.6,
+          color: Colors.white,
         ),
       ),
     );
@@ -51,14 +48,14 @@ class MentalPageState extends State<MentalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(75),
+        preferredSize: const Size.fromHeight(75),
         child: Container(
           color: Colors.white,
-          padding: EdgeInsets.only(top: 40),
+          padding: const EdgeInsets.only(top: 40),
           alignment: Alignment.topCenter,
           child: Column(
             children: [
-              Text(
+              const Text(
                 'Mental',
                 style: TextStyle(
                   fontSize: 24,
@@ -67,7 +64,7 @@ class MentalPageState extends State<MentalPage> {
                 ),
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
                       color: Colors.black,
@@ -75,7 +72,7 @@ class MentalPageState extends State<MentalPage> {
                     ),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Challenges',
                   style: TextStyle(
                     fontSize: 18,
@@ -89,53 +86,14 @@ class MentalPageState extends State<MentalPage> {
         ),
       ),
       body: Container(
-        color: Color.fromARGB(255, 182, 30, 30),
-          child: Column(
-            children: [
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DiamondContainer(
-                    size: 50,
-                    color: Colors.white,
-                  ),
-                  SizedBox(width: 10),
-                  DiamondContainer(
-                    size: 50,
-                    color: Colors.white,
-                  ),
-                  SizedBox(width: 10),
-                  DiamondContainer(
-                    size: 50,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  hintText: 'Enter text here',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.all(20),
-                ),
-              ),
-              SizedBox(
-                height: 500,
-              ), // just an example of a long widget to show scrolling
-            ],
-          ),
-        ),
-        height: MediaQuery.of(context).size.height - 75,
+        color: const Color.fromARGB(255, 182, 30, 30),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   DiamondContainer(
                     size: 50,
                     color: Colors.white,
@@ -152,8 +110,8 @@ class MentalPageState extends State<MentalPage> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
-              TextField(
+              const SizedBox(height: 20),
+              const TextField(
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -162,9 +120,6 @@ class MentalPageState extends State<MentalPage> {
                   contentPadding: EdgeInsets.all(20),
                 ),
               ),
-              SizedBox(
-                height: 500,
-              ), // just an example of a long widget to show scrolling
             ],
           ),
         ),
