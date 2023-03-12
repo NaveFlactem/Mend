@@ -11,10 +11,16 @@ class AccountPageState extends State<AccountPage> {
   final PageController _profile = PageController(initialPage: 1);
 
   // example of getting user's name from database
-  String _username = 'Nave Flactem';//This will be replaced with code from the database for username
+  String _username =
+      'Nave Flactem'; //This will be replaced with code from the database for username
 
   @override
+<<<<<<< HEAD
   Widget build(BuildContext context) {//hello
+=======
+  Widget build(BuildContext context) {
+    //hello
+>>>>>>> 624ab647d9e2859594eb5e4aea65a943562d9b4c
     return Scaffold(
       body: PageView(
         controller: _profile,
