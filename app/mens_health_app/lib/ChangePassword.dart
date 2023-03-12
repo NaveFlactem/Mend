@@ -8,18 +8,18 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
   void _savePassword() {
     // TODO: save new username to database or storage
-    String newUsername = _usernameController.text;
-    print('New username: $newUsername');
+    String newPassword = _passwordController.text;
+    print('New password: $newPassword');
     Navigator.pop(context);
   }
 
@@ -37,7 +37,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
-              controller: _usernameController,
+              controller: _passwordController,
               decoration: InputDecoration(
                 labelText: 'New Password',
                 labelStyle: TextStyle(color: Colors.grey[800]), // set label color to dark grey

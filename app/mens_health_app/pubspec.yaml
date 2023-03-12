@@ -32,6 +32,10 @@ flutter:
 
   assets:
     - asset/images/ponderbox.png
+    - asset/images/IMG_5049.jpg
+    - asset/images/IMG_5050.jpg
+    - asset/images/IMG_5051.jpg
+    
 
 flutter_native_splash:
   color: "#42a5f5"

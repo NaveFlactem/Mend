@@ -137,6 +137,75 @@ class SettingsPageState extends State<SettingsPage> {
                      );
                     },
                   ),
+                  ListTile(
+                    leading: Icon(Icons.wallet, color: Color.fromARGB(255, 172, 172, 172)), // Set the color of the icon to green
+                    title: Text('       '),
+                    onTap: () {
+                       showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Easter Egg'),
+                            content: Image.asset('asset/images/IMG_5051.jpg'),
+                            actions: [
+                               TextButton(
+                                child: Text('Close'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                               ),
+                            ],
+                          );
+                         },
+                      );
+                     },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.wallet, color: Color.fromARGB(255, 172, 172, 172)), // Set the color of the icon to green
+                    title: Text('       '),
+                    onTap: () {
+                       showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Easter Egg'),
+                            content: Image.asset('asset/images/IMG_5050.jpg'),
+                            actions: [
+                               TextButton(
+                                child: Text('Close'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                               ),
+                            ],
+                          );
+                         },
+                      );
+                     },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.wallet, color: Color.fromARGB(255, 172, 172, 172)), // Set the color of the icon to green
+                    title: Text('       '),
+                    onTap: () {
+                       showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Easter Egg'),
+                            content: Image.asset('asset/images/IMG_5049.jpg'),
+                            actions: [
+                               TextButton(
+                                child: Text('Close'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                               ),
+                            ],
+                          );
+                         },
+                      );
+                     },
+                  ),
                 ],
               ),
             ),
