@@ -14,7 +14,7 @@ class AccountPageState extends State<AccountPage> {
   String _username = 'Nave Flactem';//This will be replaced with code from the database for username
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {//hello
     return Scaffold(
       body: PageView(
         controller: _profile,
