@@ -15,12 +15,7 @@ class AccountPageState extends State<AccountPage> {
       'Nave Flactem'; //This will be replaced with code from the database for username
 
   @override
-<<<<<<< HEAD
   Widget build(BuildContext context) {//hello
-=======
-  Widget build(BuildContext context) {
-    //hello
->>>>>>> 624ab647d9e2859594eb5e4aea65a943562d9b4c
     return Scaffold(
       body: PageView(
         controller: _profile,
