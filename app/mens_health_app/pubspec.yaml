@@ -35,6 +35,8 @@ flutter:
     - asset/images/IMG_5049.jpg
     - asset/images/IMG_5050.jpg
     - asset/images/IMG_5051.jpg
+    - asset/images/IMG_5076.PNG
+    - asset/images/IMG_5078.PNG
     
 
 flutter_native_splash:

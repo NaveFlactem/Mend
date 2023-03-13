@@ -76,6 +76,7 @@ class SettingsPageState extends State<SettingsPage> {
                     title: Text('Personalization'),
                     onTap: () {
                       // navigate to Personalization page
+                      
                     },
                   ),
                   ListTile(
@@ -193,6 +194,52 @@ class SettingsPageState extends State<SettingsPage> {
                           return AlertDialog(
                             title: Text('Easter Egg'),
                             content: Image.asset('asset/images/IMG_5049.jpg'),
+                            actions: [
+                               TextButton(
+                                child: Text('Close'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                               ),
+                            ],
+                          );
+                         },
+                      );
+                     },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.wallet, color: Color.fromARGB(255, 172, 172, 172)), // Set the color of the icon to green
+                    title: Text('       '),
+                    onTap: () {
+                       showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Easter Egg'),
+                            content: Image.asset('asset/images/IMG_5076.PNG'),
+                            actions: [
+                               TextButton(
+                                child: Text('Close'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                               ),
+                            ],
+                          );
+                         },
+                      );
+                     },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.wallet, color: Color.fromARGB(255, 172, 172, 172)), // Set the color of the icon to green
+                    title: Text('       '),
+                    onTap: () {
+                       showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Easter Egg'),
+                            content: Image.asset('asset/images/IMG_5078.PNG'),
                             actions: [
                                TextButton(
                                 child: Text('Close'),
