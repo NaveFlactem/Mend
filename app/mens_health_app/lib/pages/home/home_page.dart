@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'articles_page.dart';
 import 'friends_page.dart';
+import 'center_page.dart';
 import 'mental_page.dart';
 import 'physical_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,21 +28,7 @@ class HomePage extends StatelessWidget {
           // Mental
           const MentalPage(),
           // Center page
-          Container(
-            color: Colors.yellow,
-            child: CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  actions: [
-                    IconButton(
-                      onPressed: signUserOut,
-                      icon: Icon(Icons.logout),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          const CenterPage(),
           // Physical
           const PhysicalPage(),
           // Articles
