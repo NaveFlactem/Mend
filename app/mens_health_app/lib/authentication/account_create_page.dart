@@ -37,7 +37,7 @@ class AccountCreateState extends State<AccountCreate> {
     );
 
     // Send email verification to the new user
-    //await userCredential.user!.sendEmailVerification();
+    await userCredential.user!.sendEmailVerification();
 
     // Get the current user's ID
     String userId = FirebaseAuth.instance.currentUser!.uid;
@@ -50,11 +50,6 @@ class AccountCreateState extends State<AccountCreate> {
       'user id': userId,
       'createdAt': FieldValue.serverTimestamp(),
     });
-
-    // Append the new user to the "userList" document in Firestore
-    // await FirebaseFirestore.instance.collection('users').doc('userList').update({
-    //   'users': FieldValue.arrayUnion([userId]),
-    // });
   }
 
   // Function to check if an email is already in use
