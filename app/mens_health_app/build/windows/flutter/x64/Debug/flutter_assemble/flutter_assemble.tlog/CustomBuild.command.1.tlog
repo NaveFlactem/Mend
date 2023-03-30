@@ -1,0 +1,28 @@
+^C:\USERS\EVANM\DESKTOP\MENS_HEALTH_APP\BUILD\WINDOWS\CMAKEFILES\40F3380E903C2497105E18A228B467B1\FLUTTER_WINDOWS.DLL.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E env FLUTTER_ROOT=C:\flutter PROJECT_DIR=C:\Users\evanm\Desktop\mens_health_app FLUTTER_ROOT=C:\flutter FLUTTER_EPHEMERAL_DIR=C:\Users\evanm\Desktop\mens_health_app\windows\flutter\ephemeral PROJECT_DIR=C:\Users\evanm\Desktop\mens_health_app FLUTTER_TARGET=C:\Users\evanm\Desktop\mens_health_app\lib\main.dart DART_DEFINES=RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ== DART_OBFUSCATION=false TRACK_WIDGET_CREATION=true TREE_SHAKE_ICONS=false PACKAGE_CONFIG=C:\Users\evanm\Desktop\mens_health_app\.dart_tool\package_config.json C:/flutter/packages/flutter_tools/bin/tool_backend.bat windows-x64 Debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\EVANM\DESKTOP\MENS_HEALTH_APP\BUILD\WINDOWS\CMAKEFILES\66B178ACD0EF371761AD7366D85C17F4\FLUTTER_ASSEMBLE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\EVANM\DESKTOP\MENS_HEALTH_APP\WINDOWS\FLUTTER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/evanm/Desktop/mens_health_app/windows -BC:/Users/evanm/Desktop/mens_health_app/build/windows --check-stamp-file C:/Users/evanm/Desktop/mens_health_app/build/windows/flutter/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
