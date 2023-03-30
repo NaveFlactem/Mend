@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "193724399621",
+    "firebase_url": "https://men-health-app-default-rtdb.firebaseio.com",
+    "project_id": "men-health-app",
+    "storage_bucket": "men-health-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193724399621:android:20b0971c9af7854dcbdc6c",
+        "android_client_info": {
+          "package_name": "com.example.mens_health_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "193724399621-fghd6m87a2uncheai1jpsbscbpvsthga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mens_health_app",
+            "certificate_hash": "1c762f2add27d5fa750282baa0dd7846da1cc191"
+          }
+        },
+        {
+          "client_id": "193724399621-cko47jm8a59vbp6ff1roo3m22sirp4em.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEwVJ-VpIkCE1AESmsxbEAeO0u6uVEGyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "193724399621-cko47jm8a59vbp6ff1roo3m22sirp4em.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "193724399621-eo2buoo1b1da4v0fqv5k0dicj84oal66.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mensHealthApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
