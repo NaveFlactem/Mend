@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
-import 'package:avatar_glow/avatar_glow.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PhysicalPage extends StatefulWidget {
   const PhysicalPage({Key? key}) : super(key: key);
@@ -8,7 +8,37 @@ class PhysicalPage extends StatefulWidget {
   PhysicalPageState createState() => PhysicalPageState();
 }
 
+List<String> physicalData = [];
+
+Future<void> getData() async {
+  final docRef =
+      await FirebaseFirestore.instance.collection('data').doc('articles');
+
+  docRef.get().then(
+    (DocumentSnapshot doc) {
+      physicalData.clear();
+      final data = doc.data() as Map<String, dynamic>;
+      physicalData.add(data['physical'][0]);
+    },
+    onError: (e) => print("Error getting document: $e"),
+  );
+
+  // final QuerySnapshot<Map<String, dynamic>> snapshot =
+  //     await FirebaseFirestore.instance.collection('data').get();
+
+  // for (final DocumentSnapshot<Map<String, dynamic>> doc in snapshot.docs) {
+  //   physicalData.add(doc['physical'][1].toString());
+  // }
+}
+
 class PhysicalPageState extends State<PhysicalPage> {
+  @override
+  void initState() {
+    super.initState();
+    physicalData.clear();
+    getData();
+  }
+
   Widget _buildList(double h, double w) {
     return PageView(
         scrollDirection: Axis.vertical,
@@ -40,7 +70,7 @@ class PhysicalPageState extends State<PhysicalPage> {
 //--------------------------------------------------------------------------------------------------------------------------------------------//
 
   Container pageOne(double h, double w) {
-    String title = 'Sore But Sturdy';
+    String title = 'Daily Exercise';
     String instruction =
         '''Instructions:\nGet down on all fours, placing your hands slightly wider than your shoulders. Straighten your arms and legs. Lower your body until your chest nearly touches the floor. Pause, then push yourself back up. Repeat.''';
 
@@ -57,8 +87,8 @@ class PhysicalPageState extends State<PhysicalPage> {
                     decoration: borderedBody(),
                     child: Column(
                       children: [
-                        Expanded(flex: 1, child: myTitle(title)),
-                        Expanded(flex: 10, child: pageOneBody(instruction))
+                        Expanded(flex: 1, child: firstTitle(title)),
+                        Expanded(flex: 10, child: firstBody(instruction))
                       ],
                     ))),
             Expanded(
@@ -77,7 +107,7 @@ class PhysicalPageState extends State<PhysicalPage> {
         ));
   }
 
-  Container myTitle(String title) //page one title
+  Container firstTitle(String title) //page one title
   {
     return Container(
         margin: const EdgeInsets.only(top: 5),
@@ -92,7 +122,7 @@ class PhysicalPageState extends State<PhysicalPage> {
             textAlign: TextAlign.center));
   }
 
-  Container pageOneBody(String instruction) //page one text body
+  Container firstBody(String instruction) //page one text body
   {
     return Container(
         padding: const EdgeInsets.all(10),
@@ -139,14 +169,15 @@ class PhysicalPageState extends State<PhysicalPage> {
 //--------------------------------------------------------------------------------------------------------------------------------------------//
 
   Container pageTwo(double h, double w) {
-    const String str = '''jdlkjaslkcjwilajlckwjalkcwjaildjalksdjaslidjaiodl''';
+    String title = 'Daily Ponder';
+    String str = 'ASJKDLJASLKDJSAKLJCLJSAJCLKSALJCASLLJSLCAJL';
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
         child: Column(
           children: [
             Expanded(
-                flex: 3,
+                flex: 1,
                 child: Container(
                     width: w,
                     padding: const EdgeInsets.all(10),
@@ -157,7 +188,7 @@ class PhysicalPageState extends State<PhysicalPage> {
                             color: const Color.fromARGB(255, 128, 128, 128)),
                         borderRadius: BorderRadius.circular(20),
                         color: const Color.fromARGB(255, 29, 39, 46)),
-                    child: const Text(str,
+                    child: Text(str,
                         style: TextStyle(
                             fontSize: 20,
                             color: Color.fromARGB(255, 205, 211, 217),
@@ -175,12 +206,20 @@ class PhysicalPageState extends State<PhysicalPage> {
                             color: const Color.fromARGB(255, 128, 128, 128)),
                         borderRadius: BorderRadius.circular(20),
                         color: const Color.fromARGB(255, 29, 39, 46)),
-                    child: const Text('testing',
-                        style: TextStyle(
+                    child: TextField(
+                        controller:
+                            TextEditingController(text: 'Insert Text Here'),
+                        maxLines: 20,
+                        minLines: 20,
+                        style: const TextStyle(
                             fontSize: 20,
                             color: Color.fromARGB(255, 205, 211, 217),
                             fontFamily: 'Courier'),
-                        textAlign: TextAlign.center)))
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          isDense: true,
+                        ))))
           ],
         ));
   }
@@ -190,51 +229,92 @@ class PhysicalPageState extends State<PhysicalPage> {
 //--------------------------------------------------------------------------------------------------------------------------------------------//
 
   Container pageThree(double h, double w) {
-    const String str = '''jdlkjaslkcjwilajlckwjalkcwjaildjalksdjaslidjaiodl''';
+    getData();
+    String title = 'Daily Dose of Readings';
+    String str = '';
+    str = physicalData.toString().replaceAll('[', '').replaceAll(']', '');
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
-        child: Column(
-          children: [
-            Expanded(
-                flex: 3,
-                child: Container(
-                    width: w,
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.only(
-                        top: 100, right: 10, left: 10, bottom: 5),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 128, 128, 128)),
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color.fromARGB(255, 29, 39, 46)),
-                    child: const Text(str,
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 205, 211, 217),
-                            fontFamily: 'Courier'),
-                        textAlign: TextAlign.center))),
-            Expanded(
-                flex: 1,
-                child: Container(
-                    width: w,
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.only(
-                        top: 5, bottom: 10, right: 10, left: 10),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 128, 128, 128)),
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color.fromARGB(255, 29, 39, 46)),
-                    child: const Text('testing',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 205, 211, 217),
-                            fontFamily: 'Courier'),
-                        textAlign: TextAlign.center)))
-          ],
-        ));
+        child: Container(
+            width: w,
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.only(
+                top: 100, right: 10, left: 10, bottom: 10),
+            decoration: BoxDecoration(
+                border:
+                    Border.all(color: const Color.fromARGB(255, 128, 128, 128)),
+                borderRadius: BorderRadius.circular(20),
+                color: const Color.fromARGB(255, 29, 39, 46)),
+            child: Column(
+              children: [
+                Expanded(flex: 1, child: thirdTitle(title)),
+                Expanded(flex: 15, child: thirdBody(str))
+              ],
+            )));
   }
+
+  Container thirdTitle(String title) {
+    return Container(
+        margin: const EdgeInsets.only(top: 5),
+        padding: const EdgeInsets.only(right: 10, left: 10),
+        decoration: borderedTitle(),
+        child: Text(title,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontFamily: 'Courier'),
+            textAlign: TextAlign.center));
+  }
+
+  Container thirdBody(String body) {
+    return Container(
+        padding: const EdgeInsets.all(10),
+        child: Text(body,
+            style: const TextStyle(
+                height: 1.2,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: Color.fromARGB(255, 205, 211, 217),
+                fontFamily: 'Courier'),
+            textAlign: TextAlign.center));
+  }
+
+  /*
+  Container firstTitle(String title) //page one title
+  {
+    return Container(
+        margin: const EdgeInsets.only(top: 5),
+        padding: const EdgeInsets.only(right: 10, left: 10),
+        decoration: borderedTitle(),
+        child: Text(title,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontFamily: 'Courier'),
+            textAlign: TextAlign.center));
+  }
+
+  Container firstBody(String instruction) //page one text body
+  {
+    return Container(
+        padding: const EdgeInsets.all(10),
+        child: Text(instruction,
+            style: const TextStyle(
+                height: 1.2,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Color.fromARGB(255, 205, 211, 217),
+                fontFamily: 'Courier'),
+            textAlign: TextAlign.center));
+  }
+  */
+
+  //--------------------------------------------------------------------------------------------------------------------------------------------//
+//================================================================= BUILD WIDGET ===============================================================//
+//--------------------------------------------------------------------------------------------------------------------------------------------//
 
   @override
   Widget build(BuildContext context) {
@@ -323,22 +403,3 @@ class _RippleEffectState extends State<RippleEffect> {
 }
 
 
-
-  // AvatarGlow test_func()
-  // {
-  //   return AvatarGlow(
-  //     endRadius: 60.0,
-  //     child: Material(     // Replace this child with your own
-  //       elevation: 8.0,
-  //       shape: const CircleBorder(),
-  //       child: CircleAvatar(
-  //         backgroundColor: Colors.grey[100],
-  //         radius: 30.0,
-  //         child: Image.asset(
-  //           'asset/images/IMG_5051.jpg',
-  //           height: 50,
-  //         ),
-  //       ),
-  //     ),
-  //     );
-  // }
