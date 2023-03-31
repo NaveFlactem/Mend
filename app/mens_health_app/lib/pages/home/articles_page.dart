@@ -10,7 +10,7 @@ class ArticlesPage extends StatelessWidget {
         children: [
           //Articles
           Container(
-            color: Colors.purple,
+            color: Color.fromARGB(255, 29, 39, 46),
             child: const CustomScrollView(
               slivers: [],
             ),
