@@ -10,7 +10,7 @@ class FriendsPage extends StatelessWidget {
         children: [
           //Friends
           Container(
-            color: Colors.blue,
+            color: Color.fromARGB(255, 29, 39, 46),
             child: const CustomScrollView(
               slivers: [],
             ),
