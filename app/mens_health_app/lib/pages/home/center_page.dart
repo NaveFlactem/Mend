@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mens_health_app/pages/account/account_page.dart';
-import 'home_page.dart';
 
 class CenterPage extends StatefulWidget {
   const CenterPage({Key? key}) : super(key: key);
@@ -10,59 +7,85 @@ class CenterPage extends StatefulWidget {
 }
 
 class CenterPageState extends State<CenterPage> {
+  Widget _buildList(double h, double w) {
+    return mainPage(h, w);
+  }
+
+  Container mainPage(double h, double w) {
+    const String str = '''jdlkjaslkcjwilajlckwjalkcwjaildjalksdjaslidjaiodl''';
+
+    return Container(
+        decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
+        child: Column(
+          children: [
+            Expanded(
+                flex: 3,
+                child: Container(
+                    width: w,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.only(
+                        top: 100, right: 10, left: 10, bottom: 5),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 128, 128, 128)),
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color.fromARGB(255, 29, 39, 46)),
+                    child: const Text(str,
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 205, 211, 217),
+                            fontFamily: 'Courier'),
+                        textAlign: TextAlign.center))),
+            Expanded(
+                flex: 1,
+                child: Container(
+                    width: w,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.only(
+                        top: 5, bottom: 10, right: 10, left: 10),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 128, 128, 128)),
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color.fromARGB(255, 29, 39, 46)),
+                    child: const Text('testing',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 205, 211, 217),
+                            fontFamily: 'Courier'),
+                        textAlign: TextAlign.center)))
+          ],
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    var padding = MediaQuery.of(context).padding;
+    double newheight = height - padding.top - padding.bottom;
+
     return Scaffold(
-      appBar: AppBar(
-        // automacitallyImplyLeading: false,
-        title: Row(
-          children: [
-            Flexible(
-              flex: 4,
+        appBar: AppBar(
+          title: const Text('Main Page',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Color.fromARGB(255, 205, 211, 217),
+                  fontFamily: 'Courier',
+                  fontWeight: FontWeight.bold)),
+          centerTitle: true,
+          elevation: 0,
+          toolbarHeight: 60,
+          backgroundColor: const Color.fromARGB(255, 145, 69, 190),
+          automaticallyImplyLeading: false,
+          bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(4.0),
               child: Container(
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    width: 70,
-                    height: 70,
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.account_circle,
-                        size: 50,
-                      ),
-                      onPressed: () {
-                        // Add your code for the button's onPressed event here
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const AccountPage()));
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Align(
-                alignment: Alignment.topLeft,
-                // child: CustomScrollView(
-                //   slivers: [
-                //     SliverAppBar(
-                //       actions: [
-                //         IconButton(
-                //           onPressed: signUserOut,
-                //           icon: Icon(Icons.logout),
-                //         ),
-                //       ],
-                //     ),
-                //   ],
-                // ),
-              ),
-            ),
-          ],
+                  color: const Color.fromARGB(255, 205, 211, 217),
+                  height: 2.0)),
         ),
-      ),
-    );
+        extendBodyBehindAppBar: true,
+        body: _buildList(newheight, width));
   }
 }
