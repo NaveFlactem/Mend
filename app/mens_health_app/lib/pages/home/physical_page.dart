@@ -25,7 +25,6 @@ Future<List<String>> getData() async {
 class PhysicalPageState extends State<PhysicalPage> {
   List<String> physicalData = [];
   @override
-  @override
   void initState() {
     super.initState();
     getData().then((data) {
