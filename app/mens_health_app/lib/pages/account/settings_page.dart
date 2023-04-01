@@ -123,7 +123,7 @@ class SettingsPageState extends State<SettingsPage> {
                             content: Container(
                               width: double.maxFinite,
                               child: Text(
-                                'This app was created by Thomas Pollicino, Ryan Taylor, Alfonso Luis Del Rosario, Cristian Rivas, Salad, Vish, Open AI, and Evan Metcalf as part of the Google DSC program at UCSC.',
+                                'This app was created by Thomas Pollicino, Ryan Taylor, Alfonso Luis Del Rosario, Sallar, Vish, and Evan Metcalf as part of the Google DSC program at UCSC.',
                               ),
                             ),
                             actions: [
