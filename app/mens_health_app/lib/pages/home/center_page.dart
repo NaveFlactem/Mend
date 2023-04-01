@@ -1,5 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:mens_health_app/pages/account/account_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+final user = FirebaseAuth.instance.currentUser;
+
+class UserData {
+  String? username;
+  String? emailAddress;
+
+  UserData({
+    required this.username,
+    required this.emailAddress,
+  });
+}
+
+// returns the email and name
+UserData getUserInfo() {
+  // current user
+  final user = FirebaseAuth.instance.currentUser;
+  String? name;
+  String? email;
+
+  if (user != null) {
+    for (final providerProfile in user.providerData) {
+      // extract the name and email from providerData
+      name = providerProfile.displayName;
+      email = providerProfile.email;
+    }
+  }
+  // return the data stored in a class
+  return UserData(username: name, emailAddress: email);
+}
+
+//////////////////////////////////////////////////////
 
 class CenterPage extends StatefulWidget {
   const CenterPage({Key? key}) : super(key: key);
@@ -13,14 +47,21 @@ class CenterPageState extends State<CenterPage> {
   }
 
   Container mainPage(double h, double w) {
-    const String str = '';
+    const String mentalChallenge =
+        '''Complete both daily mental health challenges''';
+    int mentalProgress = 1;
+    const String physicalChallenge =
+        '''Complete both daily physical health challenges''';
+    int physicalProgress = 0;
+    int mentalStreak = 7;
+    int physicalStreak = 5;
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
         child: Column(
           children: [
             Expanded(
-                flex: 3,
+                flex: 2,
                 child: Container(
                     width: w,
                     padding: const EdgeInsets.all(10),
@@ -31,30 +72,157 @@ class CenterPageState extends State<CenterPage> {
                             color: const Color.fromARGB(255, 128, 128, 128)),
                         borderRadius: BorderRadius.circular(20),
                         color: const Color.fromARGB(255, 29, 39, 46)),
-                    child: const Text(str,
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 205, 211, 217),
-                            fontFamily: 'Courier'),
-                        textAlign: TextAlign.center))),
+                    child: Column(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                                margin: EdgeInsets.only(top: 20),
+                                child: Text('Daily Challenge Streaks',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 22,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        fontFamily: 'Courier'),
+                                    textAlign: TextAlign.center))),
+                        Expanded(
+                            flex: 2,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                        width: 1000,
+                                        height: 1000,
+                                        margin: EdgeInsets.only(
+                                            left: 20,
+                                            right: 20,
+                                            top: 15,
+                                            bottom: 15),
+                                        decoration: borderedBody(),
+                                        child: Center(
+                                            child: Text(
+                                                physicalStreak.toString(),
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 50,
+                                                    color: Color.fromARGB(
+                                                        255, 255, 255, 255),
+                                                    fontFamily: 'Courier'),
+                                                textAlign: TextAlign.center)))),
+                                Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                        width: 1000,
+                                        height: 1000,
+                                        margin: EdgeInsets.only(
+                                            left: 20,
+                                            right: 20,
+                                            top: 15,
+                                            bottom: 15),
+                                        decoration: borderedBody(),
+                                        child: Center(
+                                            child: Text(mentalStreak.toString(),
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 50,
+                                                    color: Color.fromARGB(
+                                                        255, 255, 255, 255),
+                                                    fontFamily: 'Courier'),
+                                                textAlign: TextAlign.center))))
+                              ],
+                            ))
+                      ],
+                    ))),
             Expanded(
                 flex: 1,
                 child: Container(
                     width: w,
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.only(
+                        top: 30, right: 10, left: 10, bottom: 10),
                     margin: const EdgeInsets.only(
-                        top: 5, bottom: 10, right: 10, left: 10),
+                        top: 10, bottom: 10, right: 10, left: 10),
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: const Color.fromARGB(255, 128, 128, 128)),
                         borderRadius: BorderRadius.circular(20),
                         color: const Color.fromARGB(255, 29, 39, 46)),
-                    child: const Text('testing',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 205, 211, 217),
-                            fontFamily: 'Courier'),
-                        textAlign: TextAlign.center)))
+                    child: Column(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: Text(physicalChallenge,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontFamily: 'Courier'),
+                                textAlign: TextAlign.center)),
+                        Expanded(
+                            flex: 1,
+                            child: LinearPercentIndicator(
+                              width: MediaQuery.of(context).size.width - 50,
+                              animation: true,
+                              lineHeight: 25.0,
+                              animationDuration: 2000,
+                              percent: physicalProgress / 2,
+                              center: Text(physicalProgress.toString() + '/2',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      fontFamily: 'Courier'),
+                                  textAlign: TextAlign.center),
+                              barRadius: Radius.circular(15),
+                              progressColor: Colors.greenAccent,
+                            ))
+                      ],
+                    ))),
+            Expanded(
+                flex: 1,
+                child: Container(
+                    width: w,
+                    padding: const EdgeInsets.only(
+                        top: 30, right: 10, left: 10, bottom: 10),
+                    margin: const EdgeInsets.only(
+                        top: 10, bottom: 10, right: 10, left: 10),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 128, 128, 128)),
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color.fromARGB(255, 29, 39, 46)),
+                    child: Column(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: Text(mentalChallenge,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontFamily: 'Courier'),
+                                textAlign: TextAlign.center)),
+                        Expanded(
+                            flex: 1,
+                            child: LinearPercentIndicator(
+                              width: MediaQuery.of(context).size.width - 50,
+                              animation: true,
+                              lineHeight: 25.0,
+                              animationDuration: 2000,
+                              percent: mentalProgress / 2,
+                              center: Text(mentalProgress.toString() + '/2',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      fontFamily: 'Courier'),
+                                  textAlign: TextAlign.center),
+                              barRadius: Radius.circular(15),
+                              progressColor: Colors.greenAccent,
+                            ))
+                      ],
+                    )))
           ],
         ));
   }
@@ -99,5 +267,13 @@ class CenterPageState extends State<CenterPage> {
         ),
         extendBodyBehindAppBar: true,
         body: _buildList(newheight, width));
+  }
+
+  Decoration borderedBody() {
+    return BoxDecoration(
+      border: Border.all(color: const Color.fromARGB(255, 128, 128, 128)),
+      borderRadius: BorderRadius.circular(20),
+      color: const Color.fromARGB(255, 29, 39, 46),
+    );
   }
 }
