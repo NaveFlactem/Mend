@@ -193,20 +193,16 @@ class PhysicalPageState extends State<PhysicalPage> {
                 flex: 1,
                 child: Container(
                     width: w,
-                    padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.only(
-                        top: 100, right: 10, left: 10, bottom: 5),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 128, 128, 128)),
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color.fromARGB(255, 29, 39, 46)),
-                    child: Text(str,
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 205, 211, 217),
-                            fontFamily: 'Courier'),
-                        textAlign: TextAlign.center))),
+                        top: 100, right: 15, left: 15, bottom: 10),
+                    padding: const EdgeInsets.all(10),
+                    decoration: borderedBody(),
+                    child: Column(
+                      children: [
+                        Expanded(flex: 2, child: firstTitle(title)),
+                        Expanded(flex: 10, child: firstBody(str))
+                      ],
+                    ))),
             Expanded(
                 flex: 1,
                 child: Container(
@@ -235,6 +231,33 @@ class PhysicalPageState extends State<PhysicalPage> {
                         ))))
           ],
         ));
+  }
+
+  Container secondTitle(String title) {
+    return Container(
+        margin: const EdgeInsets.only(top: 5),
+        padding: const EdgeInsets.only(right: 10, left: 10),
+        decoration: borderedTitle(),
+        child: Text(title,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontFamily: 'Courier'),
+            textAlign: TextAlign.center));
+  }
+
+  Container secondBody(String body) {
+    return Container(
+        padding: const EdgeInsets.all(10),
+        child: Text(body,
+            style: const TextStyle(
+                height: 1.2,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: Color.fromARGB(255, 205, 211, 217),
+                fontFamily: 'Courier'),
+            textAlign: TextAlign.center));
   }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------//
