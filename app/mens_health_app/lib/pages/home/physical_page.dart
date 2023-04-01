@@ -8,7 +8,8 @@ class PhysicalPage extends StatefulWidget {
   PhysicalPageState createState() => PhysicalPageState();
 }
 
-Future<List<String>> getData(collec, doc, field, index) async {
+Future<List<String>> getData(
+    String collec, String doc, String field, int index) async {
   final docRef =
       await FirebaseFirestore.instance.collection(collec).doc(doc).get();
   final data = docRef.data() as Map<String, dynamic>;
@@ -23,13 +24,25 @@ Future<List<String>> getData(collec, doc, field, index) async {
 }
 
 class PhysicalPageState extends State<PhysicalPage> {
-  List<String> physicalData = [];
+  List<String> instructionsPhysicalData = [];
+  List<String> promptPhysicalData = [];
+  List<String> articlePhysicalData = [];
   @override
   void initState() {
     super.initState();
+    getData('data', 'instructions', 'physical', 1).then((data) {
+      setState(() {
+        instructionsPhysicalData = data;
+      });
+    });
+    getData('data', 'prompt', 'physical', 1).then((data) {
+      setState(() {
+        promptPhysicalData = data;
+      });
+    });
     getData('data', 'articles', 'physical', 1).then((data) {
       setState(() {
-        physicalData = data;
+        articlePhysicalData = data;
       });
     });
   }
@@ -86,9 +99,13 @@ class PhysicalPageState extends State<PhysicalPage> {
 //--------------------------------------------------------------------------------------------------------------------------------------------//
 
   Container pageOne(double h, double w) {
+    getData('data', 'instructions', 'physical', 1);
     String title = 'Daily Exercise';
-    String instruction =
-        '''Instructions:\nGet down on all fours, placing your hands slightly wider than your shoulders. Straighten your arms and legs. Lower your body until your chest nearly touches the floor. Pause, then push yourself back up. Repeat.''';
+    var instruction = '';
+    instruction = instructionsPhysicalData
+        .toString()
+        .replaceAll('[', '')
+        .replaceAll(']', '');
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
@@ -185,8 +202,10 @@ class PhysicalPageState extends State<PhysicalPage> {
 //--------------------------------------------------------------------------------------------------------------------------------------------//
 
   Container pageTwo(double h, double w) {
+    getData('data', 'prompt', 'physical', 1);
     String title = 'Daily Ponder';
-    String str = 'ASJKDLJASLKDJSAKLJCLJSAJCLKSALJCASLLJSLCAJL';
+    String str = '';
+    str = promptPhysicalData.toString().replaceAll('[', '').replaceAll(']', '');
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
@@ -248,7 +267,8 @@ class PhysicalPageState extends State<PhysicalPage> {
     getData('data', 'articles', 'physical', 1);
     String title = 'Daily Dose of Readings';
     String str = '';
-    str = physicalData.toString().replaceAll('[', '').replaceAll(']', '');
+    str =
+        articlePhysicalData.toString().replaceAll('[', '').replaceAll(']', '');
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
