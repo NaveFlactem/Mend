@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:async_button_builder/async_button_builder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PhysicalPage extends StatefulWidget {
@@ -14,13 +14,6 @@ Future<List<String>> getData(
       await FirebaseFirestore.instance.collection(collec).doc(doc).get();
   final data = docRef.data() as Map<String, dynamic>;
   return List<String>.from(data[field]);
-
-  // final QuerySnapshot<Map<String, dynamic>> snapshot =
-  //     await FirebaseFirestore.instance.collection('data').get();
-
-  // for (final DocumentSnapshot<Map<String, dynamic>> doc in snapshot.docs) {
-  //   physicalData.add(doc['physical'][1].toString());
-  // }
 }
 
 class PhysicalPageState extends State<PhysicalPage> {
@@ -61,7 +54,7 @@ class PhysicalPageState extends State<PhysicalPage> {
             child: Text('Error loading data.'),
           );
         }
-        final data = snapshot.data!;
+
         return PageView(
           scrollDirection: Axis.vertical,
           children: [
@@ -114,6 +107,7 @@ class PhysicalPageState extends State<PhysicalPage> {
             Expanded(
                 flex: 4,
                 child: Container(
+                    width: w,
                     margin: const EdgeInsets.only(
                         top: 100, right: 15, left: 15, bottom: 10),
                     padding: const EdgeInsets.all(10),
@@ -125,16 +119,25 @@ class PhysicalPageState extends State<PhysicalPage> {
                       ],
                     ))),
             Expanded(
-                flex: 2,
+                flex: 1,
                 child: Container(
+                    width: w,
                     margin: const EdgeInsets.only(
-                        top: 10, right: 15, left: 15, bottom: 15),
+                        top: 5, right: 15, left: 15, bottom: 15),
                     decoration: borderedBody(),
-                    child: Row(
-                      children: [
-                        Expanded(flex: 1, child: progress(h, w)),
-                        Expanded(flex: 1, child: myButtons(h, w))
-                      ],
+                    child: AsyncButtonBuilder(
+                      child: Text('Complete',
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold)),
+                      onPressed: () async {
+                        await Future.delayed(Duration(seconds: 1));
+                      },
+                      builder: (context, child, callback, _) {
+                        return TextButton(
+                          child: child,
+                          onPressed: callback,
+                        );
+                      },
                     )))
           ],
         ));
@@ -167,34 +170,6 @@ class PhysicalPageState extends State<PhysicalPage> {
                 color: Color.fromARGB(255, 205, 211, 217),
                 fontFamily: 'Courier'),
             textAlign: TextAlign.center));
-  }
-
-  Container progress(double h, double w) //filled percentage summary
-  {
-    return Container(
-        height: h,
-        width: w,
-        padding: const EdgeInsets.all(20),
-        margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
-        child: LiquidCircularProgressIndicator(
-            value: 0.50,
-            valueColor:
-                const AlwaysStoppedAnimation(Color.fromARGB(255, 145, 69, 190)),
-            backgroundColor: Colors.black,
-            borderColor: Colors.white,
-            borderWidth: 1.5,
-            direction: Axis.vertical,
-            center: const Text("50%", style: TextStyle(color: Colors.white))));
-  }
-
-  Container myButtons(double h, double w) //buttons
-  {
-    return Container(
-        width: w,
-        height: h,
-        padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
-        child: const MyWidget());
   }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------//
@@ -321,37 +296,6 @@ class PhysicalPageState extends State<PhysicalPage> {
                 fontFamily: 'Courier'),
             textAlign: TextAlign.center));
   }
-
-  /*
-  Container firstTitle(String title) //page one title
-  {
-    return Container(
-        margin: const EdgeInsets.only(top: 5),
-        padding: const EdgeInsets.only(right: 10, left: 10),
-        decoration: borderedTitle(),
-        child: Text(title,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Color.fromARGB(255, 0, 0, 0),
-                fontFamily: 'Courier'),
-            textAlign: TextAlign.center));
-  }
-
-  Container firstBody(String instruction) //page one text body
-  {
-    return Container(
-        padding: const EdgeInsets.all(10),
-        child: Text(instruction,
-            style: const TextStyle(
-                height: 1.2,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Color.fromARGB(255, 205, 211, 217),
-                fontFamily: 'Courier'),
-            textAlign: TextAlign.center));
-  }
-  */
 
   //--------------------------------------------------------------------------------------------------------------------------------------------//
 //================================================================= BUILD WIDGET ===============================================================//
