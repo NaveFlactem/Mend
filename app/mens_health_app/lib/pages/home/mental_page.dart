@@ -95,6 +95,7 @@ class MentalPageState extends State<MentalPage> {
     getData('data', 'instructions', 'mental', 1);
     String title = 'Daily Exercise';
     var instruction = '';
+    String email = 'addelros@ucsc.edu';
     instruction = instructionsMentalData[1]
         .toString()
         .replaceAll('[', '')
@@ -131,12 +132,16 @@ class MentalPageState extends State<MentalPage> {
                               fontSize: 30, fontWeight: FontWeight.bold)),
                       onPressed: () async {
                         await Future.delayed(Duration(seconds: 1));
+                        var collection =
+                            FirebaseFirestore.instance.collection('users');
+                        collection
+                            .doc(email)
+                            .update({'mentalProgress': FieldValue.increment(1)})
+                            .then((_) => print('Success'))
+                            .catchError((error) => print('Failed: $error'));
                       },
                       builder: (context, child, callback, _) {
-                        return TextButton(
-                          child: child,
-                          onPressed: callback,
-                        );
+                        return TextButton(child: child, onPressed: callback);
                       },
                     )))
           ],
@@ -180,6 +185,7 @@ class MentalPageState extends State<MentalPage> {
     getData('data', 'prompt', 'mental', 1);
     String title = 'Daily Ponder';
     String str = '';
+    String email = 'addelros@ucsc.edu';
     str =
         promptMentalData[1].toString().replaceAll('[', '').replaceAll(']', '');
 
@@ -188,7 +194,7 @@ class MentalPageState extends State<MentalPage> {
         child: Column(
           children: [
             Expanded(
-                flex: 1,
+                flex: 4,
                 child: Container(
                     width: w,
                     margin: const EdgeInsets.only(
@@ -202,12 +208,12 @@ class MentalPageState extends State<MentalPage> {
                       ],
                     ))),
             Expanded(
-                flex: 1,
+                flex: 4,
                 child: Container(
                     width: w,
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.only(
-                        top: 5, bottom: 10, right: 10, left: 10),
+                        top: 5, bottom: 10, right: 15, left: 15),
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: const Color.fromARGB(255, 128, 128, 128)),
@@ -226,7 +232,35 @@ class MentalPageState extends State<MentalPage> {
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                           isDense: true,
-                        ))))
+                        )))),
+            Expanded(
+                flex: 1,
+                child: Container(
+                    width: w,
+                    margin: const EdgeInsets.only(
+                        top: 5, right: 15, left: 15, bottom: 15),
+                    decoration: borderedBody(),
+                    child: AsyncButtonBuilder(
+                      child: Text('Complete',
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold)),
+                      onPressed: () async {
+                        await Future.delayed(Duration(seconds: 1));
+                        var collection =
+                            FirebaseFirestore.instance.collection('users');
+                        collection
+                            .doc(email)
+                            .update({'mentalProgress': FieldValue.increment(1)})
+                            .then((_) => print('Success'))
+                            .catchError((error) => print('Failed: $error'));
+                      },
+                      builder: (context, child, callback, _) {
+                        return TextButton(
+                          child: child,
+                          onPressed: callback,
+                        );
+                      },
+                    ))),
           ],
         ));
   }
@@ -352,56 +386,3 @@ class MentalPageState extends State<MentalPage> {
   }
 }
 
-//        TESTING AREA        //
-class MyWidget extends StatelessWidget {
-  const MyWidget({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return const RippleEffect();
-  }
-}
-
-class RippleEffect extends StatefulWidget {
-  const RippleEffect({Key? key}) : super(key: key);
-  @override
-  _RippleEffectState createState() => _RippleEffectState();
-}
-
-class _RippleEffectState extends State<RippleEffect> {
-  bool show = false;
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: AnimatedContainer(
-          width: 120,
-          height: 120,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeOutQuart,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.purple,
-            boxShadow: [
-              if (show)
-                for (var i = 0; i < 4; i += 1)
-                  BoxShadow(
-                      spreadRadius: i * 15.0,
-                      color: const Color.fromARGB(255, 48, 187, 64)
-                          .withAlpha((255 ~/ (i + 1))))
-            ],
-          ),
-          child: GestureDetector(onTapDown: _onTapDown, onTapUp: _onTapUp)),
-    );
-  }
-
-  void _onTapDown(TapDownDetails details) {
-    setState(() {
-      show = !show;
-    });
-  }
-
-  void _onTapUp(TapUpDetails details) {
-    setState(() {
-      show = !show;
-    });
-  }
-}
