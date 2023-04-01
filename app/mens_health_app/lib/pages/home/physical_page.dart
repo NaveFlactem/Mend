@@ -94,6 +94,7 @@ class PhysicalPageState extends State<PhysicalPage> {
   Container pageOne(double h, double w) {
     getData('data', 'instructions', 'physical', 1);
     String title = 'Daily Exercise';
+    String email = 'addelros@ucsc.edu';
     var instruction = '';
     instruction = instructionsPhysicalData[1]
         .toString()
@@ -131,6 +132,13 @@ class PhysicalPageState extends State<PhysicalPage> {
                               fontSize: 30, fontWeight: FontWeight.bold)),
                       onPressed: () async {
                         await Future.delayed(Duration(seconds: 1));
+                        var collection =
+                            FirebaseFirestore.instance.collection('users');
+                        collection
+                            .doc(email)
+                            .update({'mentalProgress': FieldValue.increment(1)})
+                            .then((_) => print('Success'))
+                            .catchError((error) => print('Failed: $error'));
                       },
                       builder: (context, child, callback, _) {
                         return TextButton(
@@ -180,6 +188,7 @@ class PhysicalPageState extends State<PhysicalPage> {
     getData('data', 'prompt', 'physical', 1);
     String title = 'Daily Ponder';
     String str = '';
+    String email = 'addelros@ucsc.edu';
     str = promptPhysicalData[1]
         .toString()
         .replaceAll('[', '')
@@ -190,7 +199,7 @@ class PhysicalPageState extends State<PhysicalPage> {
         child: Column(
           children: [
             Expanded(
-                flex: 1,
+                flex: 4,
                 child: Container(
                     width: w,
                     margin: const EdgeInsets.only(
@@ -204,12 +213,12 @@ class PhysicalPageState extends State<PhysicalPage> {
                       ],
                     ))),
             Expanded(
-                flex: 1,
+                flex: 4,
                 child: Container(
                     width: w,
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.only(
-                        top: 5, bottom: 10, right: 10, left: 10),
+                        top: 5, bottom: 10, right: 15, left: 15),
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: const Color.fromARGB(255, 128, 128, 128)),
@@ -228,7 +237,35 @@ class PhysicalPageState extends State<PhysicalPage> {
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                           isDense: true,
-                        ))))
+                        )))),
+            Expanded(
+                flex: 1,
+                child: Container(
+                    width: w,
+                    margin: const EdgeInsets.only(
+                        top: 5, right: 15, left: 15, bottom: 15),
+                    decoration: borderedBody(),
+                    child: AsyncButtonBuilder(
+                      child: Text('Complete',
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold)),
+                      onPressed: () async {
+                        await Future.delayed(Duration(seconds: 1));
+                        var collection =
+                            FirebaseFirestore.instance.collection('users');
+                        collection
+                            .doc(email)
+                            .update({'mentalProgress': FieldValue.increment(1)})
+                            .then((_) => print('Success'))
+                            .catchError((error) => print('Failed: $error'));
+                      },
+                      builder: (context, child, callback, _) {
+                        return TextButton(
+                          child: child,
+                          onPressed: callback,
+                        );
+                      },
+                    )))
           ],
         ));
   }
