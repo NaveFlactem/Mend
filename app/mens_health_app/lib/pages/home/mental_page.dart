@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:async_button_builder/async_button_builder.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MentalPage extends StatefulWidget {
   const MentalPage({Key? key}) : super(key: key);
@@ -6,264 +8,272 @@ class MentalPage extends StatefulWidget {
   MentalPageState createState() => MentalPageState();
 }
 
-class MentalPageState extends State<MentalPage> {
-  bool ponder = false;
-  bool think = false;
-  bool read = false;
+Future<List<String>> getData() async {
+  final docRef =
+      await FirebaseFirestore.instance.collection('data').doc('articles').get();
+  final data = docRef.data() as Map<String, dynamic>;
+  return List<String>.from(data['mental']);
+}
 
-  Widget _buildList(double h, double w) {
-    return PageView(
-        scrollDirection: Axis.vertical,
-        children: [pageOne(h, w), pageTwo(h, w), pageThree(h, w)]);
+class MentalPageState extends State<MentalPage> {
+  List<String> mentalData = [];
+  @override
+  void initState() {
+    super.initState();
+    getData().then((data) {
+      setState(() {
+        mentalData = data;
+      });
+    });
   }
 
+  Widget _buildPageView(double h, double w) {
+    return FutureBuilder<List<String>>(
+      future: getData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (snapshot.hasError) {
+          return Center(
+            child: Text('Error loading data.'),
+          );
+        }
+
+        return PageView(
+          scrollDirection: Axis.vertical,
+          children: [
+            pageOne(h, w),
+            pageTwo(h, w),
+            pageThree(h, w),
+          ],
+        );
+      },
+    );
+  }
+
+//--------------------------------------------------------------------------------------------------------------------------------------------//
+//================================================================= PAGE FUNCTIONS ===========================================================//
+//--------------------------------------------------------------------------------------------------------------------------------------------//
+
+  Decoration borderedTitle() //boxdecoration for rounded bordered title
+  {
+    return BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: const Color.fromARGB(255, 144, 106, 191),
+        border: Border.all(color: const Color.fromARGB(255, 0, 0, 0)));
+  }
+
+  Decoration borderedBody() {
+    return BoxDecoration(
+      border: Border.all(color: const Color.fromARGB(255, 128, 128, 128)),
+      borderRadius: BorderRadius.circular(20),
+      color: const Color.fromARGB(255, 29, 39, 46),
+    );
+  }
+
+//--------------------------------------------------------------------------------------------------------------------------------------------//
+//================================================================= PAGE ONE =================================================================//
+//--------------------------------------------------------------------------------------------------------------------------------------------//
+
   Container pageOne(double h, double w) {
-    const String challengeone = '''
-A random paragraph can also be an excellent way for a writer to tackle writers block. Writing block can often happen due to being stuck with a current project that the writer is trying to complete. By inserting a completely random
-''';
+    String title = 'Daily Thoughts';
+    String instruction =
+        '''Think BIGGGGGGGG. THINK BIIIIIIIIIGG MAAAAAAAAAAAAAAAAANNN''';
+    bool read = false;
+
     return Container(
-      color: const Color.fromARGB(255, 30, 41, 82),
-      child: Center(
-        child: Container(
-          color: const Color.fromARGB(255, 20, 31, 72),
-          height: h,
-          width: w,
-          margin: const EdgeInsets.only(left: 10, right: 10),
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 10,
+        decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
+        child: Column(
+          children: [
+            Expanded(
+                flex: 4,
                 child: Container(
-                  margin: const EdgeInsets.only(
-                      top: 100, right: 10, left: 10, bottom: 10),
-                  child: const Text(
-                    'Challenge 1 of 3 \n         Ponder',
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Color.fromARGB(255, 237, 171, 26),
-                      fontFamily: 'Times New Roman',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 12,
+                    margin: const EdgeInsets.only(
+                        top: 100, right: 15, left: 15, bottom: 10),
+                    padding: const EdgeInsets.all(10),
+                    decoration: borderedBody(),
+                    child: Column(
+                      children: [
+                        Expanded(flex: 1, child: firstTitle(title)),
+                        Expanded(flex: 10, child: firstBody(instruction))
+                      ],
+                    ))),
+            Expanded(
+                flex: 1,
+                child: Container(
+                    width: w,
+                    margin: const EdgeInsets.only(
+                        top: 5, right: 15, left: 15, bottom: 15),
+                    decoration: borderedBody(),
+                    child: AsyncButtonBuilder(
+                      child: Text('Complete',
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold)),
+                      onPressed: () async {
+                        await Future.delayed(Duration(seconds: 1));
+                      },
+                      builder: (context, child, callback, _) {
+                        return TextButton(
+                          child: child,
+                          onPressed: callback,
+                        );
+                      },
+                    )))
+          ],
+        ));
+  }
+
+  Container firstTitle(String title) //page one title
+  {
+    return Container(
+        margin: const EdgeInsets.only(top: 5),
+        padding: const EdgeInsets.only(right: 10, left: 10),
+        decoration: borderedTitle(),
+        child: Text(title,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontFamily: 'Courier'),
+            textAlign: TextAlign.center));
+  }
+
+  Container firstBody(String instruction) //page one text body
+  {
+    return Container(
+        padding: const EdgeInsets.all(10),
+        child: Text(instruction,
+            style: const TextStyle(
+                height: 1.2,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Color.fromARGB(255, 205, 211, 217),
+                fontFamily: 'Courier'),
+            textAlign: TextAlign.center));
+  }
+//--------------------------------------------------------------------------------------------------------------------------------------------//
+//================================================================= PAGE TWO =================================================================//
+//--------------------------------------------------------------------------------------------------------------------------------------------//
+
+  Container pageTwo(double h, double w) {
+    String title = 'Daily Ponder';
+    String str = 'ASJKDLJASLKDJSAKLJCLJSAJCLKSALJCASLLJSLCAJL';
+
+    return Container(
+        decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
+        child: Column(
+          children: [
+            Expanded(
+                flex: 1,
                 child: Container(
                     width: w,
                     padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
+                    margin: const EdgeInsets.only(
+                        top: 100, right: 10, left: 10, bottom: 5),
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: const Color.fromARGB(255, 128, 128, 128)),
                         borderRadius: BorderRadius.circular(20),
-                        color: const Color.fromARGB(255, 40, 51, 92)),
-                    child: const Text(challengeone,
+                        color: const Color.fromARGB(255, 29, 39, 46)),
+                    child: Text(str,
                         style: TextStyle(
                             fontSize: 20,
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 205, 211, 217),
                             fontFamily: 'Courier'),
-                        textAlign: TextAlign.center)),
-                //MAKE PROMPT BOX HERE!! (MAKE IT A CONTAINER)
-              ),
-              Expanded(
-                flex: 7,
+                        textAlign: TextAlign.center))),
+            Expanded(
+                flex: 1,
                 child: Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: const Color.fromARGB(255, 128, 128, 128)),
-                      borderRadius: BorderRadius.circular(20),
-                      color: const Color.fromARGB(255, 40, 51, 92)),
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Enter your text here',
-                      border: OutlineInputBorder(),
-                      //MAKE PROMPT BOX HERE!! (MAKE IT A CONTAINER)
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 10,
-                child: Container(
-                  alignment: Alignment.bottomCenter,
-                  width: 400,
-                  height: 100,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        ponder = true;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-                      backgroundColor: ponder ? Colors.green : Colors.blue,
-                    ),
-                    child: Text(
-                      ponder ? 'Move to challenge 2' : 'Ponder compeleted',
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+                    width: w,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.only(
+                        top: 5, bottom: 10, right: 10, left: 10),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 128, 128, 128)),
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color.fromARGB(255, 29, 39, 46)),
+                    child: TextField(
+                        controller:
+                            TextEditingController(text: 'Insert Text Here'),
+                        maxLines: 20,
+                        minLines: 20,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 205, 211, 217),
+                            fontFamily: 'Courier'),
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          isDense: true,
+                        ))))
+          ],
+        ));
   }
 
-  Container pageTwo(double h, double w) {
-    const String challengethree = '''
-A random paragraph can also be an excellent way for a writer to tackle writers block. Writing block can often happen due to being stuck with a current project that the writer is trying to complete. By inserting a completely random
-''';
-    return Container(
-      color: const Color.fromARGB(255, 30, 41, 82),
-      child: Center(
-        child: Container(
-          color: const Color.fromARGB(255, 20, 31, 72),
-          height: h,
-          width: w,
-          margin: const EdgeInsets.only(left: 10, right: 10),
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Container(
-                  margin: const EdgeInsets.only(
-                      top: 100, right: 10, left: 10, bottom: 10),
-                  child: const Text(
-                    'Challenge 2 of 3 \n         Think',
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Color.fromARGB(255, 237, 171, 26),
-                      fontFamily: 'Times New Roman',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  margin: const EdgeInsets.only(
-                      top: 0, right: 10, left: 10, bottom: 10),
-                  child: const Text(
-                    challengethree,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Color.fromARGB(255, 237, 171, 26),
-                      fontFamily: 'Times New Roman',
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.bottomCenter,
-                  width: 400,
-                  height: 100,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        think = true;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-                      backgroundColor: think ? Colors.green : Colors.blue,
-                    ),
-                    child: Text(
-                      think ? 'Move to challenge 3' : 'Think compeleted',
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+//--------------------------------------------------------------------------------------------------------------------------------------------//
+//================================================================= PAGE THREE ===============================================================//
+//--------------------------------------------------------------------------------------------------------------------------------------------//
 
   Container pageThree(double h, double w) {
-    const String challengethree = '''
-A random paragraph can also be an excellent way for a writer to tackle writers block. Writing block can often happen due to being stuck with a current project that the writer is trying to complete. By inserting a completely random
-''';
+    getData();
+    String title = 'Daily Dose of Readings';
+    String str = '';
+    str = mentalData.toString().replaceAll('[', '').replaceAll(']', '');
+
     return Container(
-      color: const Color.fromARGB(255, 30, 41, 82),
-      child: Center(
+        decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
         child: Container(
-          color: const Color.fromARGB(255, 20, 31, 72),
-          height: h,
-          width: w,
-          margin: const EdgeInsets.only(left: 10, right: 10),
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Container(
-                  margin: const EdgeInsets.only(
-                      top: 100, right: 10, left: 10, bottom: 10),
-                  child: const Text(
-                    'Challenge 3 of 3 \n         Read',
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Color.fromARGB(255, 237, 171, 26),
-                      fontFamily: 'Times New Roman',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  margin: const EdgeInsets.only(
-                      top: 0, right: 10, left: 10, bottom: 10),
-                  child: const Text(
-                    challengethree,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Color.fromARGB(255, 237, 171, 26),
-                      fontFamily: 'Times New Roman',
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.bottomCenter,
-                  width: 400,
-                  height: 100,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        read = true;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-                      backgroundColor: read ? Colors.green : Colors.blue,
-                    ),
-                    child: Text(
-                      read ? 'YAY!' : 'Read compeleted',
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            width: w,
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.only(
+                top: 100, right: 10, left: 10, bottom: 10),
+            decoration: BoxDecoration(
+                border:
+                    Border.all(color: const Color.fromARGB(255, 128, 128, 128)),
+                borderRadius: BorderRadius.circular(20),
+                color: const Color.fromARGB(255, 29, 39, 46)),
+            child: Column(
+              children: [
+                Expanded(flex: 1, child: thirdTitle(title)),
+                Expanded(flex: 15, child: thirdBody(str))
+              ],
+            )));
   }
+
+  Container thirdTitle(String title) {
+    return Container(
+        margin: const EdgeInsets.only(top: 5),
+        padding: const EdgeInsets.only(right: 10, left: 10),
+        decoration: borderedTitle(),
+        child: Text(title,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontFamily: 'Courier'),
+            textAlign: TextAlign.center));
+  }
+
+  Container thirdBody(String body) {
+    return Container(
+        padding: const EdgeInsets.all(10),
+        child: Text(body,
+            style: const TextStyle(
+                height: 1.2,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: Color.fromARGB(255, 205, 211, 217),
+                fontFamily: 'Courier'),
+            textAlign: TextAlign.center));
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------------------------------//
+//================================================================= BUILD WIDGET ===============================================================//
+//--------------------------------------------------------------------------------------------------------------------------------------------//
 
   @override
   Widget build(BuildContext context) {
@@ -274,69 +284,25 @@ A random paragraph can also be an excellent way for a writer to tackle writers b
     double newheight = height - padding.top - padding.bottom;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 30, 41, 82),
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            const Flexible(
-              flex: 4,
-              child: Text(
-                'Mental Health',
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Color.fromARGB(255, 237, 171, 26),
+        appBar: AppBar(
+          title: const Text('Mental Health',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Color.fromARGB(255, 205, 211, 217),
                   fontFamily: 'Courier',
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: IconButton(
-                  icon: Icon(ponder ? Icons.star : Icons.star_border,
-                      color: ponder ? Colors.yellow : null),
-                  onPressed: () {
-                    setState(() {
-                      ponder = !ponder;
-                    });
-                  }),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: IconButton(
-                  icon: Icon(think ? Icons.star : Icons.star_border,
-                      color: think ? Colors.yellow : null),
-                  onPressed: () {
-                    setState(() {
-                      think = !think;
-                    });
-                  }),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: IconButton(
-                  icon: Icon(read ? Icons.star : Icons.star_border,
-                      color: read ? Colors.yellow : null),
-                  onPressed: () {
-                    setState(() {
-                      read = !read;
-                    });
-                  }),
-            ),
-          ],
+                  fontWeight: FontWeight.bold)),
+          centerTitle: true,
+          elevation: 0,
+          toolbarHeight: 60,
+          backgroundColor: const Color.fromARGB(255, 145, 69, 190),
+          automaticallyImplyLeading: false,
+          bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(4.0),
+              child: Container(
+                  color: const Color.fromARGB(255, 205, 211, 217),
+                  height: 2.0)),
         ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4.0),
-          child: Container(color: Colors.orange, height: 2.0),
-        ),
-        toolbarHeight: 70,
-        centerTitle: false,
-      ),
-      extendBodyBehindAppBar: true,
-      body: _buildList(newheight, width),
-    );
+        extendBodyBehindAppBar: true,
+        body: _buildPageView(newheight, width));
   }
 }
