@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mens_health_app/pages/account/account_page.dart';
 
 class CenterPage extends StatefulWidget {
   const CenterPage({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class CenterPageState extends State<CenterPage> {
   }
 
   Container mainPage(double h, double w) {
-    const String str = '''jdlkjaslkcjwilajlckwjalkcwjaildjalksdjaslidjaiodl''';
+    const String str = '';
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
@@ -84,6 +85,17 @@ class CenterPageState extends State<CenterPage> {
               child: Container(
                   color: const Color.fromARGB(255, 205, 211, 217),
                   height: 2.0)),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.account_circle),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AccountPage()),
+                );
+              },
+            ),
+          ],
         ),
         extendBodyBehindAppBar: true,
         body: _buildList(newheight, width));
