@@ -102,7 +102,7 @@ class PhysicalPageState extends State<PhysicalPage> {
     getData('data', 'instructions', 'physical', 1);
     String title = 'Daily Exercise';
     var instruction = '';
-    instruction = instructionsPhysicalData
+    instruction = instructionsPhysicalData[1]
         .toString()
         .replaceAll('[', '')
         .replaceAll(']', '');
@@ -205,7 +205,10 @@ class PhysicalPageState extends State<PhysicalPage> {
     getData('data', 'prompt', 'physical', 1);
     String title = 'Daily Ponder';
     String str = '';
-    str = promptPhysicalData.toString().replaceAll('[', '').replaceAll(']', '');
+    str = promptPhysicalData[1]
+        .toString()
+        .replaceAll('[', '')
+        .replaceAll(']', '');
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
@@ -267,8 +270,10 @@ class PhysicalPageState extends State<PhysicalPage> {
     getData('data', 'articles', 'physical', 1);
     String title = 'Daily Dose of Readings';
     String str = '';
-    str =
-        articlePhysicalData.toString().replaceAll('[', '').replaceAll(']', '');
+    str = articlePhysicalData[1]
+        .toString()
+        .replaceAll('[', '')
+        .replaceAll(']', '');
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
