@@ -8,20 +8,11 @@ class PhysicalPage extends StatefulWidget {
   PhysicalPageState createState() => PhysicalPageState();
 }
 
-List<String> physicalData = [];
-
-Future<void> getData() async {
+Future<List<String>> getData() async {
   final docRef =
-      await FirebaseFirestore.instance.collection('data').doc('articles');
-
-  docRef.get().then(
-    (DocumentSnapshot doc) {
-      physicalData.clear();
-      final data = doc.data() as Map<String, dynamic>;
-      physicalData.add(data['physical'][0]);
-    },
-    onError: (e) => print("Error getting document: $e"),
-  );
+      await FirebaseFirestore.instance.collection('data').doc('articles').get();
+  final data = docRef.data() as Map<String, dynamic>;
+  return List<String>.from(data['physical']);
 
   // final QuerySnapshot<Map<String, dynamic>> snapshot =
   //     await FirebaseFirestore.instance.collection('data').get();
@@ -32,17 +23,43 @@ Future<void> getData() async {
 }
 
 class PhysicalPageState extends State<PhysicalPage> {
+  List<String> physicalData = [];
+  @override
   @override
   void initState() {
     super.initState();
-    physicalData.clear();
-    getData();
+    getData().then((data) {
+      setState(() {
+        physicalData = data;
+      });
+    });
   }
 
-  Widget _buildList(double h, double w) {
-    return PageView(
-        scrollDirection: Axis.vertical,
-        children: [pageOne(h, w), pageTwo(h, w), pageThree(h, w)]);
+  Widget _buildPageView(double h, double w) {
+    return FutureBuilder<List<String>>(
+      future: getData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (snapshot.hasError) {
+          return Center(
+            child: Text('Error loading data.'),
+          );
+        }
+        final data = snapshot.data!;
+        return PageView(
+          scrollDirection: Axis.vertical,
+          children: [
+            pageOne(h, w),
+            pageTwo(h, w),
+            pageThree(h, w),
+          ],
+        );
+      },
+    );
   }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------//
@@ -344,7 +361,7 @@ class PhysicalPageState extends State<PhysicalPage> {
                   height: 2.0)),
         ),
         extendBodyBehindAppBar: true,
-        body: _buildList(newheight, width));
+        body: _buildPageView(newheight, width));
   }
 }
 
@@ -401,5 +418,3 @@ class _RippleEffectState extends State<RippleEffect> {
     });
   }
 }
-
-
