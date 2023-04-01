@@ -8,28 +8,41 @@ class MentalPage extends StatefulWidget {
   MentalPageState createState() => MentalPageState();
 }
 
-Future<List<String>> getData() async {
+Future<List<String>> getData(
+    String collec, String doc, String field, int index) async {
   final docRef =
-      await FirebaseFirestore.instance.collection('data').doc('articles').get();
+      await FirebaseFirestore.instance.collection(collec).doc(doc).get();
   final data = docRef.data() as Map<String, dynamic>;
-  return List<String>.from(data['mental']);
+  return List<String>.from(data[field]);
 }
 
 class MentalPageState extends State<MentalPage> {
-  List<String> mentalData = [];
+  List<String> instructionsMentalData = [];
+  List<String> promptMentalData = [];
+  List<String> articleMentalData = [];
   @override
   void initState() {
     super.initState();
-    getData().then((data) {
+    getData('data', 'instructions', 'mental', 1).then((data) {
       setState(() {
-        mentalData = data;
+        instructionsMentalData = data;
+      });
+    });
+    getData('data', 'prompt', 'mental', 1).then((data) {
+      setState(() {
+        promptMentalData = data;
+      });
+    });
+    getData('data', 'articles', 'mental', 1).then((data) {
+      setState(() {
+        articleMentalData = data;
       });
     });
   }
 
   Widget _buildPageView(double h, double w) {
     return FutureBuilder<List<String>>(
-      future: getData(),
+      future: getData('data', 'articles', 'mental', 1),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -79,10 +92,13 @@ class MentalPageState extends State<MentalPage> {
 //--------------------------------------------------------------------------------------------------------------------------------------------//
 
   Container pageOne(double h, double w) {
-    String title = 'Daily Thoughts';
-    String instruction =
-        '''Think BIGGGGGGGG. THINK BIIIIIIIIIGG MAAAAAAAAAAAAAAAAANNN''';
-    bool read = false;
+    getData('data', 'instructions', 'mental', 1);
+    String title = 'Daily Exercise';
+    var instruction = '';
+    instruction = instructionsMentalData[1]
+        .toString()
+        .replaceAll('[', '')
+        .replaceAll(']', '');
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
@@ -91,6 +107,7 @@ class MentalPageState extends State<MentalPage> {
             Expanded(
                 flex: 4,
                 child: Container(
+                    width: w,
                     margin: const EdgeInsets.only(
                         top: 100, right: 15, left: 15, bottom: 10),
                     padding: const EdgeInsets.all(10),
@@ -154,13 +171,17 @@ class MentalPageState extends State<MentalPage> {
                 fontFamily: 'Courier'),
             textAlign: TextAlign.center));
   }
+
 //--------------------------------------------------------------------------------------------------------------------------------------------//
 //================================================================= PAGE TWO =================================================================//
 //--------------------------------------------------------------------------------------------------------------------------------------------//
 
   Container pageTwo(double h, double w) {
+    getData('data', 'prompt', 'mental', 1);
     String title = 'Daily Ponder';
-    String str = 'ASJKDLJASLKDJSAKLJCLJSAJCLKSALJCASLLJSLCAJL';
+    String str = '';
+    str =
+        promptMentalData[1].toString().replaceAll('[', '').replaceAll(']', '');
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
@@ -219,10 +240,11 @@ class MentalPageState extends State<MentalPage> {
 //--------------------------------------------------------------------------------------------------------------------------------------------//
 
   Container pageThree(double h, double w) {
-    getData();
+    getData('data', 'articles', 'mental', 1);
     String title = 'Daily Dose of Readings';
     String str = '';
-    str = mentalData.toString().replaceAll('[', '').replaceAll(']', '');
+    str =
+        articleMentalData[1].toString().replaceAll('[', '').replaceAll(']', '');
 
     return Container(
         decoration: const BoxDecoration(color: Color.fromARGB(255, 29, 39, 46)),
@@ -304,5 +326,59 @@ class MentalPageState extends State<MentalPage> {
         ),
         extendBodyBehindAppBar: true,
         body: _buildPageView(newheight, width));
+  }
+}
+
+//        TESTING AREA        //
+class MyWidget extends StatelessWidget {
+  const MyWidget({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return const RippleEffect();
+  }
+}
+
+class RippleEffect extends StatefulWidget {
+  const RippleEffect({Key? key}) : super(key: key);
+  @override
+  _RippleEffectState createState() => _RippleEffectState();
+}
+
+class _RippleEffectState extends State<RippleEffect> {
+  bool show = false;
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: AnimatedContainer(
+          width: 120,
+          height: 120,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOutQuart,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.purple,
+            boxShadow: [
+              if (show)
+                for (var i = 0; i < 4; i += 1)
+                  BoxShadow(
+                      spreadRadius: i * 15.0,
+                      color: const Color.fromARGB(255, 48, 187, 64)
+                          .withAlpha((255 ~/ (i + 1))))
+            ],
+          ),
+          child: GestureDetector(onTapDown: _onTapDown, onTapUp: _onTapUp)),
+    );
+  }
+
+  void _onTapDown(TapDownDetails details) {
+    setState(() {
+      show = !show;
+    });
+  }
+
+  void _onTapUp(TapUpDetails details) {
+    setState(() {
+      show = !show;
+    });
   }
 }
