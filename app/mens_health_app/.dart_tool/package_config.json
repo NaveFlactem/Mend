@@ -32,6 +32,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "async_button_builder",
+      "rootUri": "file:///C:/Users/evanm/AppData/Local/Pub/Cache/hosted/pub.dev/async_button_builder-3.0.0+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "avatar_glow",
       "rootUri": "file:///C:/Users/evanm/AppData/Local/Pub/Cache/hosted/pub.dev/avatar_glow-2.0.2",
       "packageUri": "lib/",
@@ -182,6 +188,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "freezed_annotation",
+      "rootUri": "file:///C:/Users/evanm/AppData/Local/Pub/Cache/hosted/pub.dev/freezed_annotation-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "http_parser",
       "rootUri": "file:///C:/Users/evanm/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2",
       "packageUri": "lib/",
@@ -250,6 +262,12 @@
     {
       "name": "path",
       "rootUri": "file:///C:/Users/evanm/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.8.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "percent_indicator",
+      "rootUri": "file:///C:/Users/evanm/AppData/Local/Pub/Cache/hosted/pub.dev/percent_indicator-4.2.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -344,7 +362,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-03-29T03:54:53.082465Z",
+  "generated": "2023-05-10T21:31:34.760068Z",
   "generator": "pub",
   "generatorVersion": "2.19.5"
 }
